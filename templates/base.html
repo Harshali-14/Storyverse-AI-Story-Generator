@@ -1,0 +1,673 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+{% block title %}StoryVerse{% endblock %}
+</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+
+<style>
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+
+body{
+
+    min-height:100vh;
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top,#4c1d95,transparent 35%),
+    radial-gradient(circle at bottom,#831843,transparent 40%),
+    #080712;
+
+    color:white;
+
+    overflow-x:hidden;
+
+}
+
+
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+
+button,input,select,textarea{
+    font-family:'Poppins',sans-serif;
+}
+
+
+
+
+
+/* NAVBAR */
+
+
+.top-nav{
+
+position:sticky;
+
+top:0;
+
+z-index:1000;
+
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+
+padding:20px 60px;
+
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+
+border-bottom:1px solid rgba(255,255,255,.15);
+
+
+}
+
+
+
+.logo{
+
+
+font-size:28px;
+
+font-weight:800;
+
+
+background:linear-gradient(
+90deg,
+#c084fc,
+#ec4899
+);
+
+
+background-clip:text;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+
+}
+
+
+
+
+.nav-links{
+
+display:flex;
+
+gap:25px;
+
+align-items:center;
+
+}
+
+
+
+.nav-links a{
+
+
+color:#ddd;
+
+transition:.3s;
+
+
+}
+
+
+
+.nav-links a:hover{
+
+color:#c084fc;
+
+}
+
+
+
+.username{
+
+color:#f9a8d4;
+
+font-weight:600;
+
+}
+
+
+
+
+.btn{
+
+
+padding:10px 22px;
+
+border-radius:30px;
+
+
+background:linear-gradient(
+90deg,
+#8b5cf6,
+#ec4899
+);
+
+
+color:white!important;
+
+}
+
+
+
+
+
+/* AUTH */
+
+
+.auth-box{
+
+
+width:400px;
+
+max-width:90%;
+
+
+margin:80px auto;
+
+
+padding:40px;
+
+
+
+background:rgba(255,255,255,.1);
+
+
+backdrop-filter:blur(20px);
+
+
+
+border-radius:25px;
+
+
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.5);
+
+
+}
+
+
+
+.auth-box h1{
+
+text-align:center;
+
+margin-bottom:25px;
+
+}
+
+
+
+
+.auth-box input{
+
+
+width:100%;
+
+
+padding:15px;
+
+
+margin:10px 0;
+
+
+
+border-radius:15px;
+
+
+
+background:#111;
+
+
+color:white;
+
+
+border:1px solid #555;
+
+
+}
+
+
+
+.auth-box button{
+
+
+width:100%;
+
+
+padding:15px;
+
+
+
+border:none;
+
+
+border-radius:30px;
+
+
+
+background:linear-gradient(
+90deg,
+#8b5cf6,
+#ec4899
+);
+
+
+
+color:white;
+
+
+font-size:18px;
+
+
+cursor:pointer;
+
+
+}
+
+
+
+
+
+/* MESSAGE */
+
+
+.messages{
+
+
+position:fixed;
+
+right:30px;
+
+top:90px;
+
+z-index:2000;
+
+
+}
+
+
+
+.message{
+
+
+background:#8b5cf6;
+
+
+padding:15px 25px;
+
+
+border-radius:20px;
+
+
+}
+
+
+
+
+
+.container{
+
+width:90%;
+
+max-width:1200px;
+
+margin:auto;
+
+}
+
+
+
+
+::-webkit-scrollbar{
+
+width:8px;
+
+}
+
+
+::-webkit-scrollbar-thumb{
+
+background:#8b5cf6;
+
+border-radius:20px;
+
+}
+
+/* PROFILE DROPDOWN */
+
+
+.profile-dropdown{
+
+position:relative;
+
+}
+
+
+
+.profile-btn{
+
+
+border:none;
+
+cursor:pointer;
+
+background:linear-gradient(
+90deg,
+#8b5cf6,
+#ec4899
+);
+
+
+color:white;
+
+padding:12px 20px;
+
+border-radius:30px;
+
+font-size:15px;
+
+
+}
+
+
+
+.dropdown-menu{
+
+
+position:absolute;
+
+right:0;
+
+top:55px;
+
+
+width:190px;
+
+
+background:#151522;
+
+
+border-radius:18px;
+
+
+padding:10px 0;
+
+
+display:none;
+
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.6);
+
+
+z-index:5000;
+
+
+}
+
+
+
+.dropdown-menu.show{
+
+
+display:block;
+
+
+}
+
+
+
+.dropdown-menu a{
+
+
+display:block;
+
+
+padding:14px 20px;
+
+
+color:white;
+
+
+transition:.2s;
+
+
+}
+
+
+
+.dropdown-menu a:hover{
+
+
+background:#8b5cf6;
+
+
+}
+</style>
+
+
+{% block style %}
+
+{% endblock %}
+
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- NAVBAR -->
+
+<!-- NAVBAR -->
+
+<nav class="top-nav">
+
+
+<div class="logo">
+📖 StoryVerse
+</div>
+
+
+
+<div class="nav-links">
+
+
+{% if user.is_authenticated %}
+
+
+<a href="{% url 'home' %}">
+Home
+</a>
+
+
+<a href="{% url 'generate' %}">
+Create Story
+</a>
+
+
+
+<!-- PROFILE DROPDOWN -->
+
+<div class="profile-dropdown">
+
+
+<button type="button" class="profile-btn" onclick="toggleProfile()">
+
+👤 {{ user.username }} ⌄
+
+</button>
+
+
+
+<div class="dropdown-menu" id="profileMenu">
+
+
+<a href="{% url 'profile' %}">
+ My Profile
+</a>
+
+
+<a href="{% url 'library' %}">
+ My Library
+</a>
+
+
+<a href="{% url 'logout' %}">
+Logout
+</a>
+
+
+</div>
+
+
+</div>
+
+
+{% else %}
+
+
+
+<a href="{% url 'login' %}">
+Login
+</a>
+
+
+<a href="{% url 'register' %}" class="btn">
+Register
+</a>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</nav>
+
+
+
+
+<!-- MESSAGES -->
+
+
+{% if messages %}
+
+<div class="messages">
+
+
+{% for message in messages %}
+
+
+<div class="message">
+
+{{ message }}
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+{% block content %}
+
+
+{% endblock %}
+<script>
+
+function toggleProfile(){
+
+    document
+    .getElementById("profileMenu")
+    .classList.toggle("show");
+
+}
+
+
+// close when click outside
+
+document.addEventListener(
+"click",
+function(event){
+
+let dropdown =
+document.querySelector(".profile-dropdown");
+
+
+if(!dropdown.contains(event.target)){
+
+document
+.getElementById("profileMenu")
+.classList.remove("show");
+
+}
+
+});
+
+</script>
+
+
+
+</body>
+
+</html>

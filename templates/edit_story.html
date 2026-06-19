@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div class="auth-box">
+
+
+<h1>Edit Story ✨</h1>
+
+
+<form method="post">
+
+{% csrf_token %}
+
+
+<input 
+name="title"
+value="{{story.title}}"
+required>
+
+
+
+<textarea
+name="content"
+rows="12"
+style="width:100%;padding:15px;border-radius:15px;">
+
+{{story.content}}
+
+</textarea>
+
+
+<br><br>
+
+
+<button>
+Save Changes
+</button>
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}

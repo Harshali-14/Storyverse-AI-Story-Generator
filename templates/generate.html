@@ -1,0 +1,960 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}StoryVerse · Begin a Tale{% endblock %}
+
+{% block content %}
+
+
+<div class="sv-gen">
+
+
+<div class="embers" aria-hidden="true">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+
+
+<main class="sv-gen-main">
+
+
+<div class="sv-gen-intro">
+
+<p class="sv-eyebrow">
+The spellbook is open
+</p>
+
+
+<h1 class="sv-title">
+Offer your three ingredients.
+</h1>
+
+
+<p class="sv-sub">
+A character, a keyword and a theme — 
+let AI weave your story.
+</p>
+
+
+</div>
+
+
+
+
+
+<form method="post"
+action="{% url 'generate' %}"
+class="scroll-form"
+id="storyForm">
+
+
+{% csrf_token %}
+
+
+
+
+
+<div class="field-row">
+
+
+<svg class="field-icon" viewBox="0 0 60 60">
+
+<circle cx="30" cy="24" r="12"
+fill="none"
+stroke="#c084fc"
+stroke-width="3"/>
+
+<path d="M15 50c5-12 25-12 30 0"
+fill="none"
+stroke="#c084fc"
+stroke-width="3"/>
+
+</svg>
+
+
+
+<div class="field-body">
+
+<label>Character</label>
+
+<input
+type="text"
+name="character"
+placeholder="A warrior who lost his memory"
+required>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="field-row">
+
+
+<svg class="field-icon" viewBox="0 0 60 60">
+
+<path d="M10 30h40"
+stroke="#22c55e"
+stroke-width="3"/>
+
+<circle cx="30" cy="30" r="18"
+fill="none"
+stroke="#22c55e"
+stroke-width="3"/>
+
+
+</svg>
+
+
+
+<div class="field-body">
+
+
+<label>Keyword</label>
+
+
+<input
+type="text"
+name="keyword"
+placeholder="moon, fire, destiny"
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="field-row">
+
+
+<svg class="field-icon" viewBox="0 0 60 60">
+
+
+<path d="M30 5l8 17 18 2-14 12 5 18-17-9-17 9 5-18-14-12 18-2z"
+
+fill="none"
+stroke="#facc15"
+stroke-width="3"/>
+
+
+</svg>
+
+
+
+<div class="field-body">
+
+
+<label>Theme</label>
+
+
+
+<select name="theme" required>
+
+
+<option value="" disabled selected>
+Choose story mood
+</option>
+
+
+<option value="wonder">
+Wonder
+</option>
+
+
+<option value="courage">
+Courage
+</option>
+
+
+<option value="mystery">
+Mystery
+</option>
+
+
+<option value="love">
+Love
+</option>
+
+
+<option value="redemption">
+Redemption
+</option>
+
+
+<option value="grief">
+Grief
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="field-row">
+
+
+
+<svg class="field-icon" viewBox="0 0 60 60">
+
+
+<circle cx="30" cy="30"
+r="20"
+fill="none"
+stroke="#facc15"
+stroke-width="3"/>
+
+
+<path d="M30 15v15l10 8"
+stroke="#facc15"
+stroke-width="3"/>
+
+
+</svg>
+
+
+
+
+
+<div class="field-body">
+
+
+<label>
+Story Length
+</label>
+
+
+<select name="length" required>
+
+
+<option disabled selected>
+Select length
+</option>
+
+
+<option value="short">
+Short (500 words)
+</option>
+
+
+<option value="medium">
+Medium (1000 words)
+</option>
+
+
+<option value="long">
+Long (2000+ words)
+</option>
+
+
+
+</select>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="field-row">
+
+
+<svg class="field-icon" viewBox="0 0 60 60">
+
+
+<circle cx="30" cy="30"
+r="20"
+fill="none"
+stroke="#38bdf8"
+stroke-width="3"/>
+
+
+<path d="M20 35c5 6 15 6 20 0"
+fill="none"
+stroke="#38bdf8"
+stroke-width="3"/>
+
+
+</svg>
+
+
+
+
+
+<div class="field-body">
+
+
+<label>
+Age Group
+</label>
+
+
+<select name="age" required>
+
+
+<option disabled selected>
+Who will read it?
+</option>
+
+
+<option value="children">
+Children (5-10)
+</option>
+
+
+<option value="young">
+Young Readers (11-17)
+</option>
+
+
+<option value="adult">
+Adults
+</option>
+
+
+</select>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<button
+class="wax-btn"
+id="weaveBtn"
+type="submit">
+
+
+<span class="wax-seal">
+
+✦
+
+</span>
+
+
+<span id="btnText">
+Weave the Tale
+</span>
+
+
+</button>
+
+
+
+
+
+</form>
+
+
+
+
+
+<svg class="quill-deco"
+viewBox="0 0 120 220">
+
+
+<path
+
+d="M100 10 C50 50 30 120 40 200"
+
+fill="none"
+
+stroke="#fbbf24"
+
+stroke-width="3"
+
+/>
+
+
+<path
+
+d="M100 10 C70 40 60 70 45 90"
+
+fill="#ec4899"
+
+/>
+
+
+</svg>
+
+
+
+
+
+</main>
+
+
+</div>
+
+
+
+
+
+
+
+<style>
+
+
+*{
+box-sizing:border-box;
+}
+
+
+
+.sv-gen{
+
+
+min-height:100vh;
+
+background:
+
+radial-gradient(circle at top,#7e22ce55,transparent 35%),
+
+radial-gradient(circle at bottom,#ec489955,transparent 35%),
+
+#050816;
+
+
+color:white;
+
+font-family:'Poppins',sans-serif;
+
+overflow:hidden;
+
+
+}
+
+
+
+
+
+
+.embers{
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+}
+
+
+
+
+.embers span{
+
+
+position:absolute;
+
+width:7px;
+
+height:7px;
+
+border-radius:50%;
+
+
+background:#f0abfc;
+
+
+box-shadow:
+
+0 0 25px #c084fc;
+
+
+animation:
+
+rise 10s linear infinite;
+
+
+}
+
+
+
+.embers span:nth-child(1){left:10%}
+.embers span:nth-child(2){left:30%;animation-delay:2s}
+.embers span:nth-child(3){left:50%;animation-delay:5s}
+.embers span:nth-child(4){left:70%;animation-delay:1s}
+.embers span:nth-child(5){left:90%;animation-delay:4s}
+
+
+
+
+
+@keyframes rise{
+
+
+from{
+
+transform:translateY(100vh);
+
+opacity:0;
+
+}
+
+
+50%{
+
+opacity:1;
+
+}
+
+
+to{
+
+transform:translateY(-20vh);
+
+opacity:0;
+
+}
+
+
+}
+
+
+
+
+
+.sv-gen-main{
+
+
+max-width:850px;
+
+margin:auto;
+
+padding:70px 20px;
+
+position:relative;
+
+z-index:2;
+
+
+}
+
+
+
+
+
+.sv-gen-intro{
+
+text-align:center;
+
+}
+
+
+
+.sv-eyebrow{
+
+
+letter-spacing:6px;
+
+color:#e879f9;
+
+font-size:13px;
+
+
+}
+
+
+
+
+.sv-title{
+
+
+font-size:55px;
+
+background:
+
+linear-gradient(
+90deg,
+white,
+#e879f9
+);
+
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+
+}
+
+
+
+
+.sv-sub{
+
+color:#cbd5e1;
+
+font-size:18px;
+
+}
+
+
+
+
+
+
+
+.scroll-form{
+
+
+margin-top:45px;
+
+padding:45px;
+
+
+border-radius:35px;
+
+
+background:
+
+rgba(255,255,255,.08);
+
+
+backdrop-filter:blur(25px);
+
+
+border:
+
+1px solid rgba(255,255,255,.2);
+
+
+box-shadow:
+
+0 30px 80px #0008;
+
+
+}
+
+
+
+
+
+.field-row{
+
+
+display:flex;
+
+gap:20px;
+
+padding:18px;
+
+margin-bottom:25px;
+
+
+border-radius:22px;
+
+
+background:#0004;
+
+
+transition:.3s;
+
+
+}
+
+
+
+
+.field-row:hover{
+
+transform:translateY(-5px);
+
+}
+
+
+
+
+.field-icon{
+
+width:45px;
+
+}
+
+
+
+
+
+.field-body{
+
+flex:1;
+
+}
+
+
+
+
+label{
+
+
+display:block;
+
+color:#e9d5ff;
+
+font-weight:600;
+
+
+}
+
+
+
+input,
+select{
+
+
+width:100%;
+
+margin-top:8px;
+
+padding:15px;
+
+
+border-radius:15px;
+
+
+border:
+
+1px solid #ffffff33;
+
+
+background:#020617cc;
+
+
+color:white;
+
+
+outline:none;
+
+
+}
+
+
+
+
+option{
+
+color:black;
+
+}
+
+
+
+
+
+
+
+.wax-btn{
+
+
+width:100%;
+
+padding:18px;
+
+margin-top:20px;
+
+
+border:none;
+
+border-radius:50px;
+
+
+font-size:20px;
+
+font-weight:bold;
+
+
+color:white;
+
+
+cursor:pointer;
+
+
+background:
+
+linear-gradient(
+90deg,
+#9333ea,
+#ec4899,
+#f97316
+);
+
+
+box-shadow:
+
+0 20px 50px #ec489966;
+
+
+transition:.3s;
+
+
+}
+
+
+
+.wax-btn:hover{
+
+transform:translateY(-5px);
+
+}
+
+
+
+
+.wax-seal{
+
+font-size:25px;
+
+margin-right:10px;
+
+}
+
+
+
+
+
+
+
+.quill-deco{
+
+
+position:absolute;
+
+right:-80px;
+
+bottom:100px;
+
+width:120px;
+
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+.sv-title{
+
+font-size:38px;
+
+}
+
+
+
+.scroll-form{
+
+padding:25px;
+
+}
+
+
+
+.field-row{
+
+flex-direction:column;
+
+}
+
+
+
+.quill-deco{
+
+display:none;
+
+}
+
+
+
+}
+
+
+
+</style>
+
+
+
+
+
+
+<script>
+
+
+document
+.getElementById("storyForm")
+.addEventListener("submit",function(){
+
+
+let btn=document.getElementById("weaveBtn");
+
+let text=document.getElementById("btnText");
+
+
+btn.disabled=true;
+
+
+text.innerHTML="✨ Creating your story...";
+
+
+});
+
+
+
+</script>
+
+
+
+{% endblock %}

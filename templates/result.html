@@ -1,0 +1,562 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+StoryVerse · {{ story.title|default:"Your Tale" }}
+{% endblock %}
+
+{% block content %}
+
+<div class="sv-result">
+
+<div class="stars">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+
+
+
+
+
+<main class="sv-result-main">
+
+
+
+
+
+
+
+
+
+<article class="story-page">
+
+
+<div class="bookmark"></div>
+
+
+<h1 class="story-title">
+
+{{ story.title|default:"Your Tale" }}
+
+</h1>
+
+
+
+<div class="divider">
+✦ ✦ ✦
+</div>
+
+
+
+
+<div class="story-body" id="storyText">
+
+{{ story.content|default:"Your story will appear here..." }}
+
+</div>
+
+
+
+
+<div class="page-footer">
+
+~ End of Tale ~
+
+</div>
+
+
+
+</article>
+
+
+
+
+
+<div class="result-actions">
+
+
+<a href="{% url 'generate' %}" class="btn secondary">
+Create Another
+</a>
+
+
+<button class="btn secondary" id="copyBtn">
+Copy Story
+</button>
+
+
+
+<button class="btn primary" id="saveBtn">
+
+❤️ <span>Save Story</span>
+
+</button>
+
+
+</div>
+
+
+
+</main>
+
+</div>
+
+
+
+
+
+<style>
+
+
+.sv-result{
+
+min-height:100vh;
+
+background:
+radial-gradient(circle at top,#4c1d95,transparent 35%),
+radial-gradient(circle at bottom,#831843,transparent 40%),
+#060714;
+
+color:white;
+
+font-family:'Poppins',sans-serif;
+
+}
+
+
+
+.sv-nav{
+
+height:80px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 70px;
+
+background:#ffffff10;
+
+backdrop-filter:blur(20px);
+
+}
+
+
+
+.sv-logo{
+
+font-size:28px;
+
+font-weight:800;
+
+}
+
+
+
+.sv-logo span{
+
+color:#c084fc;
+
+}
+
+
+
+.sv-links{
+
+display:flex;
+
+gap:30px;
+
+}
+
+
+
+.sv-links a{
+
+color:white;
+
+text-decoration:none;
+
+}
+
+
+
+
+
+.sv-result-main{
+
+max-width:900px;
+
+margin:auto;
+
+padding:60px 20px;
+
+}
+
+
+
+
+.ingredient-tags{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+margin-bottom:35px;
+
+}
+
+
+
+.tag{
+
+padding:10px 22px;
+
+border-radius:30px;
+
+border:1px solid #ffffff40;
+
+}
+
+
+
+.char{
+
+background:#7c3aed;
+
+}
+
+
+.key{
+
+background:#db2777;
+
+}
+
+
+.theme{
+
+background:#16a34a;
+
+}
+
+
+
+
+
+.story-page{
+
+
+position:relative;
+
+padding:55px;
+
+
+border-radius:35px;
+
+
+background:#ffffff12;
+
+
+border:1px solid #ffffff30;
+
+
+backdrop-filter:blur(25px);
+
+
+box-shadow:0 40px 100px #0008;
+
+
+}
+
+
+
+.bookmark{
+
+
+position:absolute;
+
+right:40px;
+
+top:0;
+
+width:30px;
+
+height:90px;
+
+background:#ec4899;
+
+border-radius:0 0 15px 15px;
+
+
+}
+
+
+
+
+
+.story-title{
+
+
+text-align:center;
+
+font-size:45px;
+
+
+background:linear-gradient(
+90deg,
+white,
+#c084fc,
+#ec4899
+);
+
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+
+}
+
+
+
+
+.divider{
+
+text-align:center;
+
+color:#c084fc;
+
+margin:20px;
+
+}
+
+
+
+
+.story-body{
+
+
+font-size:18px;
+
+line-height:2;
+
+
+color:#e5e7eb;
+
+
+white-space:pre-line;
+
+
+}
+
+
+
+
+.story-body::first-letter{
+
+font-size:70px;
+
+font-weight:bold;
+
+color:#c084fc;
+
+}
+
+
+
+
+
+.page-footer{
+
+
+text-align:center;
+
+margin-top:40px;
+
+color:#aaa;
+
+}
+
+
+
+
+
+.result-actions{
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+margin-top:40px;
+
+flex-wrap:wrap;
+
+}
+
+
+
+
+.btn{
+
+padding:15px 35px;
+
+border-radius:40px;
+
+cursor:pointer;
+
+font-size:16px;
+
+}
+
+
+
+.primary{
+
+
+background:linear-gradient(
+135deg,#8b5cf6,#ec4899
+);
+
+
+border:none;
+
+color:white;
+
+}
+
+
+
+.secondary{
+
+
+background:transparent;
+
+border:1px solid #c084fc;
+
+color:white;
+
+
+}
+
+
+
+.saved{
+
+background:#16a34a!important;
+
+}
+
+
+
+@media(max-width:700px){
+
+.sv-nav{
+
+padding:20px;
+
+}
+
+
+.story-page{
+
+padding:25px;
+
+}
+
+
+.story-title{
+
+font-size:30px;
+
+}
+
+}
+
+</style>
+
+
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const story = document.getElementById("storyText");
+
+    let cleanText = story.innerText;
+
+
+    cleanText = cleanText
+
+    // remove markdown
+    .replace(/\*\*/g,"")
+    .replace(/---/g,"")
+
+
+    // remove top information block
+    .replace(/Character\s*:\s*.*\n/gi,"")
+    .replace(/Keyword\s*:\s*.*\n/gi,"")
+    .replace(/Theme\s*:\s*.*\n/gi,"")
+    .replace(/Age Group\s*:\s*.*\n/gi,"")
+
+
+    // remove story headings
+    .replace(/Starting\s*:?\s*/gi,"")
+    .replace(/Start\s*:?\s*/gi,"")
+    .replace(/Beginning\s*:?\s*/gi,"")
+    .replace(/Middle\s*:?\s*/gi,"")
+    .replace(/Ending\s*:?\s*/gi,"")
+    .replace(/Conclusion\s*:?\s*/gi,"")
+
+
+    // remove extra spaces
+    .replace(/\n\s*\n\s*\n/g,"\n\n")
+    .trim();
+
+
+
+    story.innerText = cleanText;
+
+
+});
+
+
+
+
+// save
+
+document.getElementById("saveBtn").onclick=function(){
+
+this.classList.add("saved");
+
+this.querySelector("span").innerHTML="Saved ✓";
+
+};
+
+
+
+
+// copy
+
+document.getElementById("copyBtn").onclick=function(){
+
+navigator.clipboard.writeText(
+document.getElementById("storyText").innerText
+);
+
+this.innerHTML="Copied ✓";
+
+};
+
+</script>
+{% endblock %}

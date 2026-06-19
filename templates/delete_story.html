@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div class="auth-box">
+
+
+<h2>
+Delete "{{story.title}}"?
+</h2>
+
+
+<form method="post">
+
+{% csrf_token %}
+
+
+<button>
+Yes Delete
+</button>
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}
